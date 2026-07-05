@@ -106,7 +106,7 @@ const Portfolio = () => {
                     spotlightColor="rgba(0, 229, 255, 0.2)"
                   >
                     <a
-                      href={project.link}
+                      href={project.project_link}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex w-full justify-center items-center text-center font-Poppins outline-none"
