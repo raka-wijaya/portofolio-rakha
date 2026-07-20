@@ -14,7 +14,7 @@ const resources = {
       "about.title": "About Me",
       "about.desc1": "I am a Full Stack Web Developer and Informatics student at Muhammadiyah University of Sidoarjo with a strong passion for building modern, user-friendly, and scalable web applications. My journey into technology began with a curiosity about how websites work, which gradually grew into a commitment to learning software development.",
       "about.desc2": "I started by learning HTML and CSS independently through online resources before strengthening my fundamentals at Mars Coding, where I studied HTML, CSS, JavaScript, and modern front end development practices. This experience helped me develop a solid understanding of responsive web design and interactive user interfaces.",
-      "about.desc3": "As I continued my studies at university, I expanded my knowledge into back end development, databases, and software engineering principles. I learned SQL, database design, RESTful APIs, and server side programming, allowing me to build complete full stack applications from concept to deployment."
+      "about.desc3": "As I continued my studies at university, I expanded my knowledge into back end development, databases, and software engineering principles. I learned SQL, database design, RESTful APIs, and server side programming, allowing me to build complete full stack applications from concept to deployment.",
       "about.card1": "Certificates",
       "about.card2": "Projects",
       "about.card3": "Experience",
