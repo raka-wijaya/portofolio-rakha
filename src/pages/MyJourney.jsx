@@ -34,7 +34,6 @@ function MyJourney() {
 
         if (expError) throw expError;
 
-
         setCertificates(certData?.length || 0);
         setProjects(projData?.length || 0);
 
@@ -47,14 +46,16 @@ function MyJourney() {
               ? new Date()
               : new Date(item.end_date);
 
-          let diffMonths = (end.getFullYear() - start.getFullYear()) * 12 + (end.getMonth() - start.getMonth()) + 1;
-          if (diffMonths > 0) {
-            totalMonths +- diffMonths;
-          }
+            // Hitung selisih bulan secara inklusif (hitung bulan awal s.d. bulan akhir)
+            let diffMonths = (end.getFullYear() - start.getFullYear()) * 12 + (end.getMonth() - start.getMonth()) + 1;
+            if (diffMonths > 0) {
+              totalMonths += diffMonths;
+            }
           });
-        const years = Math.floar(totalMonths / 12);
-        const months = totalMonths % 12
-        setExperience({ years, months});
+
+          const years = Math.floor(totalMonths / 12);
+          const months = totalMonths % 12;
+          setExperience({ years, months });
         }
       } catch (error) {
         console.error("Gagal mengambil data:", error);
