@@ -75,13 +75,13 @@ function MyJourney() {
           </h2>
         </div>
         <div className="lg:w-2/3 flex-grow space-y-6 text-base sm:text-lg text-gray-700">
-          <p data-aos="fade-up" data-aos-delay="100" className="font-Poppins">
+          <p data-aos="fade-up" data-aos-delay="100" className="font-Poppins text-justify">
            {t('about.desc1')}
           </p>
-          <p data-aos="fade-up" data-aos-delay="150" className="font-Poppins">
+          <p data-aos="fade-up" data-aos-delay="150" className="font-Poppins text-justify">
             {t('about.desc2')}
           </p>
-          <p data-aos="fade-up" data-aos-delay="200" className="font-Poppins">
+          <p data-aos="fade-up" data-aos-delay="200" className="font-Poppins text-justify">
             {t('about.desc3')}
           </p>
         </div>
