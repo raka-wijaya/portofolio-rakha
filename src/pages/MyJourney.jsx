@@ -43,9 +43,9 @@ function MyJourney() {
           expData.forEach((item) => {
             if (!item.start_date) return;
             const start = new Date(item.start_date);
-            const end = (!item.end_date || item.end_date === '0000-00-00');
-            ? new Date()
-            : new Date(item.end_date);
+            const end = (!item.end_date || item.end_date === '0000-00-00')
+              ? new Date()
+              : new Date(item.end_date);
 
           let diffMonths (end.getFullYear() - start.getFullYear()) * 12 + (end.getMonth() - start.getMonth());
           if (end.getDate() - start.getDate()) {
