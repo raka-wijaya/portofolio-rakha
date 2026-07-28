@@ -39,12 +39,25 @@ function MyJourney() {
         setProjects(projData?.length || 0);
 
         if (expData && expData.length > 0) {
-          const start = new Date(expData[0].start_date);
-          const now = new Date();
-          const diffMonths = (now.getFullYear() - start.getFullYear()) * 12 + (now.getMonth() - start.getMonth());
-          const years = Math.floor(diffMonths / 12);
-          const months = diffMonths % 12;
-          setExperience({ years, months });
+          let totalMonths = 0;
+          expData.forEach((item) => {
+            if (!item.start_date) return;
+            const start = new Date(item.start_date);
+            const end = (!item.end_date || item.end_date === '0000-00-00');
+            ? new Date()
+            : new Date(item.end_date);
+
+          let diffMonths (end.getFullYear() - start.getFullYear()) * 12 + (end.getMonth() - start.getMonth());
+          if (end.getDate() - start.getDate()) {
+            diffMonths--;
+          }
+          if (diffMonths > 0) {
+            totalMonths +- diffMonths;
+          }
+          });
+        const years = Math.floar(totalMonths / 12);
+        const months = totalMonths % 12
+        setExperience({ years, months});
         }
       } catch (error) {
         console.error("Gagal mengambil data:", error);
