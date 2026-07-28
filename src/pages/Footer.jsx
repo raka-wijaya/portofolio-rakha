@@ -17,7 +17,7 @@ function Footer() {
 
         <h2 data-aos="fade-up" data-aos-delay="100" className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">{t("footer.title")}</h2>
 
-        <p data-aos="fade-up" data-aos-delay="150" className="text-gray-500 max-w-2xl mx-auto mb-8">
+        <p data-aos="fade-up" data-aos-delay="150" className="text-gray-500 max-w-2xl mx-auto mb-8 text-justify">
           {t("footer.desc")}
         </p>
 
