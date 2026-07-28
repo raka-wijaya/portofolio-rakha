@@ -96,7 +96,7 @@
               workData.map((work) => (
                 <div key={work.id} className="bg-white p-6 rounded-lg shadow-sm">
 
-                  <div className="flex flex-col sm:flex-row gap-5 mb-4">
+                  <div className="flex flex-col sm:flex-row gap-5 mb-4 items-center sm:items-start">
 
                     {work.image && (
                       <img 
