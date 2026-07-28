@@ -96,7 +96,7 @@
               workData.map((work) => (
                 <div key={work.id} className="bg-white p-6 rounded-lg shadow-sm">
 
-                  <div className="flex flex-col sm:flex-row gap-5 mb-4 items-center sm:items-start">
+                  <div className="flex flex-col sm:flex-row gap-5 mb-4 text-center sm:text-left">
 
                     {work.image && (
                       <img 
@@ -122,7 +122,7 @@
                           : new Date(work.end_date).toLocaleDateString(i18n.language === "id" ? "id-ID" : "en-US", { month: "short", year: "numeric" })}
                       </p>
 
-                      <p className="text-gray-600 text-sm">
+                      <p className="text-sm text-gray-600 whitespace-pre-line text-justify">
                         {i18n.language === "en" ? work.job_description : work.job_description_id}
                       </p>
                     </div>
