@@ -112,7 +112,7 @@ function Home() {
           Salendra Rakha Wijaya
         </h1>
         
-        <p data-aos="fade-up" data-aos-delay="300" className='text-sm sm:text-base md:text-lg text-gray-600 max-w-3xl mb-5 sm:mb-7 mx-auto px-4 font-Poppins'>
+        <p data-aos="fade-up" data-aos-delay="300" className='text-sm sm:text-base md:text-lg text-gray-600 max-w-3xl mb-5 sm:mb-7 mx-auto px-4 font-Poppins text-justify'>
           {t('home.title')}
         </p>
 
