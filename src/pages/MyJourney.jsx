@@ -47,7 +47,7 @@ function MyJourney() {
               ? new Date()
               : new Date(item.end_date);
 
-          let diffMonths (end.getFullYear() - start.getFullYear()) * 12 + (end.getMonth() - start.getMonth());
+          let diffMonths = (end.getFullYear() - start.getFullYear()) * 12 + (end.getMonth() - start.getMonth());
           if (end.getDate() - start.getDate()) {
             diffMonths--;
           }
