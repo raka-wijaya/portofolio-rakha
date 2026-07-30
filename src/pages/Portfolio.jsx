@@ -4,8 +4,7 @@ import Footer from './Footer';
 import { supabase } from '../lib/supabaseClient';
 import { useTranslation } from 'react-i18next';
 import i18n from '../i18n';
-import AOS from 'aos';
-import 'aos/dist/aos.css';
+import { motion } from 'framer-motion';
 
 const Portfolio = () => {
   const [portofolioData, setPortofolioData] = useState([]);
@@ -38,13 +37,6 @@ const Portfolio = () => {
     setIsEnlarged(!isEnlarged);
   };
 
-  useEffect(() => {
-    AOS.init({
-      once: true,
-      duration: 500,
-    })
-  },[])
-
   if (loading) {
     return (
       <div className="flex justify-center items-center h-screen">
@@ -59,16 +51,34 @@ const Portfolio = () => {
     <>
     <div className="container mx-auto py-6 px-4 md:py-10 md:px-12 mt-20 font-Poppins">
       <div className="text-center mb-12">
-        <h1 data-aos="fade-up" data-aos-delay="50" className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900">
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.05 }}
+          className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900"
+        >
           {t("portofolio.title")}
-        </h1>
-        <p data-aos="fade-up" data-aos-delay="100" className="text-gray-500 mt-2">{t("portofolio.desc")}</p>
+        </motion.h1>
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="text-gray-500 mt-2"
+        >
+          {t("portofolio.desc")}
+        </motion.p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
         {portofolioData.length > 0 ? (
           portofolioData.map((project) => (
-            <div data-aos="fade-up" data-aos-delay="150"
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.15 }}
               key={project.id}
               className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col"
             >
@@ -116,7 +126,7 @@ const Portfolio = () => {
                   </SpotlightCard>
                 )}
               </div>
-            </div>
+            </motion.div>
           ))
         ) : (
           <div className="col-span-full text-center font-Poppins text-gray-400 italic">

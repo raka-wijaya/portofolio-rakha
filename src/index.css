@@ -1,0 +1,14 @@
+@import "tailwindcss";
+@plugin "daisyui";
+
+
+@font-face {
+  font-family: "Poppins";
+  src: url("../src/assets/font/Poppins-Regular.ttf") format("truetype");
+}
+
+@theme {
+  --font-Poppins: "Poppins", sans-serif;
+}
+
+
