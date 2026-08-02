@@ -1,24 +1,49 @@
 import LogoLoop from './LogoLoop';
-import { FaReact, FaHtml5, FaCss3, FaFigma, FaLaravel, FaPhp, FaGithub, FaGitAlt, FaNpm } from "react-icons/fa";
-import { RiTailwindCssFill, RiJavascriptFill } from "react-icons/ri";
-import { SiPostman, SiMysql } from "react-icons/si";
+import {
+  FaReact,
+  FaHtml5,
+  FaCss3,
+  FaFigma,
+  FaLaravel,
+  FaPhp,
+  FaGithub,
+  FaGitAlt,
+} from "react-icons/fa";
+
+import {
+  RiTailwindCssFill,
+  RiJavascriptFill,
+  RiNextjsFill,
+} from "react-icons/ri";
+
+import {
+  SiPostman,
+  SiMysql,
+  SiPrisma,
+  SiSupabase,
+} from "react-icons/si";
+
 import { BiLogoTypescript } from "react-icons/bi";
 
 const techLogos = [
+[
   { node: <FaReact />, title: "React" },
   { node: <RiTailwindCssFill />, title: "Tailwind CSS" },
   { node: <RiJavascriptFill />, title: "JavaScript" },
-  { node: <FaHtml5 />, title: "Tailwind CSS" },
+  { node: <FaHtml5 />, title: "HTML5" },
   { node: <FaCss3 />, title: "CSS" },
   { node: <FaFigma />, title: "Figma" },
   { node: <BiLogoTypescript />, title: "TypeScript" },
   { node: <FaLaravel />, title: "Laravel" },
   { node: <FaPhp />, title: "PHP" },
+  { node: <RiNextjsFill />, title: "Next.js" },
+  { node: <SiPrisma />, title: "Prisma" },
+  { node: <SiSupabase />, title: "Supabase" },
   { node: <FaGithub />, title: "GitHub" },
   { node: <FaGitAlt />, title: "Git" },
-  { node: <FaNpm />, title: "npm" },
   { node: <SiPostman />, title: "Postman" },
   { node: <SiMysql />, title: "MySQL" },
+]
 ];
 
 
