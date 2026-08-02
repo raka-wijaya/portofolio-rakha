@@ -26,7 +26,6 @@ import {
 import { BiLogoTypescript } from "react-icons/bi";
 
 const techLogos = [
-[
   { node: <FaReact />, title: "React" },
   { node: <RiTailwindCssFill />, title: "Tailwind CSS" },
   { node: <RiJavascriptFill />, title: "JavaScript" },
@@ -43,7 +42,6 @@ const techLogos = [
   { node: <FaGitAlt />, title: "Git" },
   { node: <SiPostman />, title: "Postman" },
   { node: <SiMysql />, title: "MySQL" },
-]
 ];
 
 
