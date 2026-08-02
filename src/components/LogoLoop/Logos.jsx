@@ -13,6 +13,7 @@ import {
 import {
   RiTailwindCssFill,
   RiJavascriptFill,
+  RiNextjsFill,
 } from "react-icons/ri";
 
 import {
@@ -23,7 +24,6 @@ import {
 } from "react-icons/si";
 
 import { BiLogoTypescript } from "react-icons/bi";
-import { TbBrandNextjs } from "react-icons/tb";
 
 const techLogos = [
 [
@@ -36,7 +36,7 @@ const techLogos = [
   { node: <BiLogoTypescript />, title: "TypeScript" },
   { node: <FaLaravel />, title: "Laravel" },
   { node: <FaPhp />, title: "PHP" },
-  { node: <TbBrandNextjs />, title: "Next.js" },
+  { node: <RiNextjsFill />, title: "Next.js" },
   { node: <SiPrisma />, title: "Prisma" },
   { node: <SiSupabase />, title: "Supabase" },
   { node: <FaGithub />, title: "GitHub" },
