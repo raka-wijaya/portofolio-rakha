@@ -1,37 +1,42 @@
-<<<<<<< HEAD
-import React, { useState, useEffect } from 'react';
-import SpotlightCard from '../components/SpotLight/SpotlightCard';
-import { Award, Code, Briefcase } from 'lucide-react';
-import CountUp from '../components/CountUp/CountUp'
+import React, { useState, useEffect } from "react";
+import SpotlightCard from "../components/SpotLight/SpotlightCard";
+import { Award, Code, Briefcase, MapPin } from "lucide-react";
+import CountUp from "../components/CountUp/CountUp";
 import { supabase } from "../lib/supabaseClient";
-import { useTranslation } from 'react-i18next';
+import { motion } from "framer-motion";
+
+const fadeUp = (delay = 0) => ({
+  initial: { opacity: 0, y: 24 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true },
+  transition: { duration: 0.5, delay },
+});
 
 function MyJourney() {
-  const { t } = useTranslation();
   const [certificates, setCertificates] = useState(0);
   const [projects, setProjects] = useState(0);
-  const [experience, setExperience] = useState({years: 0, months: 0});
+  const [experience, setExperience] = useState({ years: 0, months: 0 });
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchAllData = async () => {
       try {
         const { data: certData, error: certError } = await supabase
-          .from('certificates')
-          .select('*');
+          .from("certificates")
+          .select("*");
 
         if (certError) throw certError;
 
         const { data: projData, error: projError } = await supabase
-          .from('projects')
-          .select('*');
+          .from("projects")
+          .select("*");
 
         if (projError) throw projError;
 
         const { data: expData, error: expError } = await supabase
-          .from('work_experience')
-          .select('*')
-          .order('start_date', { ascending: false });
+          .from("work_experience")
+          .select("*")
+          .order("start_date", { ascending: false });
 
         if (expError) throw expError;
 
@@ -43,12 +48,16 @@ function MyJourney() {
           expData.forEach((item) => {
             if (!item.start_date) return;
             const start = new Date(item.start_date);
-            const end = (!item.end_date || item.end_date === '0000-00-00')
-              ? new Date()
-              : new Date(item.end_date);
+            const end =
+              !item.end_date || item.end_date === "0000-00-00"
+                ? new Date()
+                : new Date(item.end_date);
 
             // Hitung selisih bulan secara inklusif (hitung bulan awal s.d. bulan akhir)
-            let diffMonths = (end.getFullYear() - start.getFullYear()) * 12 + (end.getMonth() - start.getMonth()) + 1;
+            let diffMonths =
+              (end.getFullYear() - start.getFullYear()) * 12 +
+              (end.getMonth() - start.getMonth()) +
+              1;
             if (diffMonths > 0) {
               totalMonths += diffMonths;
             }
@@ -68,317 +77,278 @@ function MyJourney() {
   }, []);
 
   return (
-    <div className="container mx-auto py-6 px-4 md:py-6 md:px-12 mt-5 font-Poppins">
-      <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 mb-20">
-        <div className="lg:w-1/3 flex-shrink-0">
-          <h2 data-aos="fade-up" data-aos-delay="50" className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight">
-            {t('about.title')}
-          </h2>
-        </div>
-        <div className="lg:w-2/3 flex-grow space-y-6 text-base sm:text-lg text-gray-700">
-          <p data-aos="fade-up" data-aos-delay="100" className="font-Poppins text-justify">
-           {t('about.desc1')}
-          </p>
-          <p data-aos="fade-up" data-aos-delay="150" className="font-Poppins text-justify">
-            {t('about.desc2')}
-          </p>
-          <p data-aos="fade-up" data-aos-delay="200" className="font-Poppins text-justify">
-            {t('about.desc3')}
-          </p>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full">        
-        <SpotlightCard className="bg-white p-6 rounded-2xl shadow-sm border-none" spotlightColor="rgba(0, 229, 255, 0.15)">
-          <div className="relative flex flex-col gap-8 h-full justify-between">
-            <div className="flex justify-between items-start w-full">
-              <div className="p-3 bg-cyan-50 rounded-lg text-cyan-500">
-                <Award size={23} />
-              </div>
-              <span className="text-2xl font-medium font-Poppins text-gray-900">
-                {loading ? "..." : (
-                  <CountUp
-                  from={0}
-                  to={certificates}
-                  separator=","
-                  direction="up"
-                  duration={1}
-                  className="count-up-text"
-                  startCounting={false}
-                  />
-                )}
-              </span>
-            </div>
-              <p className="text-gray-500 font-medium uppercase text-sm font-Poppins">{t('about.card1')}</p>
-          </div>
-        </SpotlightCard>
-        <SpotlightCard className="bg-white p-6 rounded-2xl shadow-sm border-none" spotlightColor="rgba(0, 229, 255, 0.15)">
-          <div className="relative flex flex-col gap-8 h-full justify-between">
-            <div className="flex justify-between items-start w-full">
-              <div className="p-3 bg-cyan-50 rounded-lg text-cyan-500">
-                <Code size={23} />
-              </div>
-              <span className="text-2xl font-medium font-Poppins text-gray-900">
-                {loading ? "..." : (
-                  <CountUp
-                  from={0}
-                  to={projects}
-                  separator=","
-                  direction="up"
-                  duration={1}
-                  className="count-up-text"
-                  startCounting={false}
-                  />
-                )}
-              </span>
-            </div>
-              <p className="text-gray-500 font-medium uppercase font-Poppins text-sm">{t('about.card2')}</p>
-          </div>
-        </SpotlightCard>
-        <SpotlightCard className="bg-white p-6 rounded-2xl shadow-sm border-none" spotlightColor="rgba(0, 229, 255, 0.15)">
-          <div className="relative flex flex-col gap-8 h-full justify-between">
-            <div className="flex justify-between items-start w-full">
-              <div className="p-3 bg-cyan-50 rounded-lg text-cyan-500">
-                <Briefcase size={23} />
-              </div>
-              <span className="text-2xl font-medium font-Poppins text-gray-900">
-                {loading ? "..." : (
-                  <>
-                    <CountUp
-                      from={0}
-                      to={experience.years}
-                      separator=","
-                      direction="up"
-                      duration={1}
-                      className="count-up-text"
-                      startCounting={false}
-                    />
-                    <span className="count-up-text"> {t('about.card5')} </span>
-                    <CountUp
-                      from={0}
-                      to={experience.months}
-                      separator=","
-                      direction="up"
-                      duration={1}
-                      className="count-up-text"
-                      startCounting={false}
-                    />
-                    <span className="count-up-text"> {t('about.card4')}</span>
-                  </>
-                )}
-              </span>
-            </div>
-              <p className="text-gray-500 font-medium uppercase font-Poppins text-sm">{t('about.card3')}</p>
-          </div>
-        </SpotlightCard>
-      </div>
-    </div>
-  );
-}
-
-export default MyJourney;
-=======
-import React, { useState, useEffect } from 'react';
-import SpotlightCard from '../components/SpotLight/SpotlightCard';
-import { Award, Code, Briefcase } from 'lucide-react';
-import CountUp from '../components/CountUp/CountUp'
-import { supabase } from "../lib/supabaseClient";
-import { useTranslation } from 'react-i18next';
-import { motion } from 'framer-motion';
-
-function MyJourney() {
-  const { t } = useTranslation();
-  const [certificates, setCertificates] = useState(0);
-  const [projects, setProjects] = useState(0);
-  const [experience, setExperience] = useState({years: 0, months: 0});
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchAllData = async () => {
-      try {
-        const { data: certData, error: certError } = await supabase
-          .from('certificates')
-          .select('*');
-
-        if (certError) throw certError;
-
-        const { data: projData, error: projError } = await supabase
-          .from('projects')
-          .select('*');
-
-        if (projError) throw projError;
-
-        const { data: expData, error: expError } = await supabase
-          .from('work_experience')
-          .select('*')
-          .order('start_date', { ascending: false });
-
-        if (expError) throw expError;
-
-        setCertificates(certData?.length || 0);
-        setProjects(projData?.length || 0);
-
-        if (expData && expData.length > 0) {
-          let totalMonths = 0;
-          expData.forEach((item) => {
-            if (!item.start_date) return;
-            const start = new Date(item.start_date);
-            const end = (!item.end_date || item.end_date === '0000-00-00')
-              ? new Date()
-              : new Date(item.end_date);
-
-            // Hitung selisih bulan secara inklusif (hitung bulan awal s.d. bulan akhir)
-            let diffMonths = (end.getFullYear() - start.getFullYear()) * 12 + (end.getMonth() - start.getMonth()) + 1;
-            if (diffMonths > 0) {
-              totalMonths += diffMonths;
-            }
-          });
-
-          const years = Math.floor(totalMonths / 12);
-          const months = totalMonths % 12;
-          setExperience({ years, months });
-        }
-      } catch (error) {
-        console.error("Gagal mengambil data:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchAllData();
-  }, []);
-
-  return (
-    <div className="container mx-auto py-6 px-4 md:py-6 md:px-12 mt-5 font-Poppins">
-      <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 mb-20">
+    <div className="container mx-auto py-6 px-4 md:py-6 md:px-12 mt-5">
+     
+      <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 mb-12">
         <div className="lg:w-1/3 flex-shrink-0">
           <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.05 }}
-            className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight"
+            {...fadeUp(0.05)}
+            className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight"
+            style={{ color: "var(--foreground)" }}
           >
-            {t('about.title')}
+            About Me
           </motion.h2>
         </div>
-        <div className="lg:w-2/3 flex-grow space-y-6 text-base sm:text-lg text-gray-700">
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="font-Poppins"
-          >
-           {t('about.desc1')}
+        <div
+          className="lg:w-2/3 flex-grow space-y-4 text-base sm:text-lg"
+          style={{ color: "var(--muted-foreground)" }}
+        >
+          <motion.p {...fadeUp(0.1)}>
+            I'm a fullstack web developer focused on developing modern,
+            responsive, and efficient websites.
           </motion.p>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.15 }}
-            className="font-Poppins"
-          >
-            {t('about.desc2')}
+          <motion.p {...fadeUp(0.15)}>
+            I'm experienced in building applications from the frontend to the
+            backend using technologies like React, PHP, and MySQL.
           </motion.p>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="font-Poppins"
-          >
-            {t('about.desc3')}
+          <motion.p {...fadeUp(0.2)}>
+            With an eye for detail and performance, I'm committed to creating
+            digital solutions that are not only visually appealing but also
+            optimal in terms of functionality and user experience.
           </motion.p>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full">        
-        <SpotlightCard className="bg-white p-6 rounded-2xl shadow-sm border-none" spotlightColor="rgba(0, 229, 255, 0.15)">
-          <div className="relative flex flex-col gap-8 h-full justify-between">
-            <div className="flex justify-between items-start w-full">
-              <div className="p-3 bg-cyan-50 rounded-lg text-cyan-500">
-                <Award size={23} />
-              </div>
-              <span className="text-2xl font-medium font-Poppins text-gray-900">
-                {loading ? "..." : (
-                  <CountUp
-                  from={0}
-                  to={certificates}
-                  separator=","
-                  direction="up"
-                  duration={1}
-                  className="count-up-text"
-                  startCounting={false}
-                  />
-                )}
-              </span>
-            </div>
-              <p className="text-gray-500 font-medium uppercase text-sm font-Poppins">{t('about.card1')}</p>
-          </div>
-        </SpotlightCard>
-        <SpotlightCard className="bg-white p-6 rounded-2xl shadow-sm border-none" spotlightColor="rgba(0, 229, 255, 0.15)">
-          <div className="relative flex flex-col gap-8 h-full justify-between">
-            <div className="flex justify-between items-start w-full">
-              <div className="p-3 bg-cyan-50 rounded-lg text-cyan-500">
-                <Code size={23} />
-              </div>
-              <span className="text-2xl font-medium font-Poppins text-gray-900">
-                {loading ? "..." : (
-                  <CountUp
-                  from={0}
-                  to={projects}
-                  separator=","
-                  direction="up"
-                  duration={1}
-                  className="count-up-text"
-                  startCounting={false}
-                  />
-                )}
-              </span>
-            </div>
-              <p className="text-gray-500 font-medium uppercase font-Poppins text-sm">{t('about.card2')}</p>
-          </div>
-        </SpotlightCard>
-        <SpotlightCard className="bg-white p-6 rounded-2xl shadow-sm border-none" spotlightColor="rgba(0, 229, 255, 0.15)">
-          <div className="relative flex flex-col gap-8 h-full justify-between">
-            <div className="flex justify-between items-start w-full">
-              <div className="p-3 bg-cyan-50 rounded-lg text-cyan-500">
-                <Briefcase size={23} />
-              </div>
-              <span className="text-2xl font-medium font-Poppins text-gray-900">
-                {loading ? "..." : (
-                  <>
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 w-full">
+
+        <motion.div {...fadeUp(0.1)} className="col-span-2">
+          <SpotlightCard
+            className="h-full rounded-2xl p-6"
+            style={{ background: "var(--card)", border: "1px solid var(--border)" }}
+            spotlightColor="rgba(216, 121, 67, 0.12)"
+          >
+            <div className="flex flex-col gap-6 h-full justify-between">
+              <div className="flex justify-between items-start w-full">
+                <div
+                  className="p-2.5 rounded-xl"
+                  style={{ background: "var(--muted)", color: "var(--primary)" }}
+                >
+                  <Award size={20} />
+                </div>
+                <span
+                  className="text-3xl"
+                  style={{ color: "var(--foreground)" }}
+                >
+                  {loading ? (
+                    <span style={{ color: "var(--muted-foreground)" }}>…</span>
+                  ) : (
                     <CountUp
                       from={0}
-                      to={experience.years}
+                      to={certificates}
                       separator=","
                       direction="up"
                       duration={1}
                       className="count-up-text"
                       startCounting={false}
                     />
-                    <span className="count-up-text"> {t('about.card5')} </span>
+                  )}
+                </span>
+              </div>
+              <p
+                className="font-semibold uppercase text-xs tracking-widest"
+                style={{ color: "var(--muted-foreground)" }}
+              >
+                Certificates
+              </p>
+            </div>
+          </SpotlightCard>
+        </motion.div>
+
+        <motion.div {...fadeUp(0.15)} className="col-span-1">
+          <SpotlightCard
+            className="h-full rounded-2xl p-6"
+            style={{ background: "var(--card)", border: "1px solid var(--border)" }}
+            spotlightColor="rgba(95, 135, 135, 0.15)"
+          >
+            <div className="flex flex-col gap-6 h-full justify-between">
+              <div className="flex justify-between items-start w-full">
+                <div
+                  className="p-2.5 rounded-xl"
+                  style={{ background: "var(--muted)", color: "var(--secondary)" }}
+                >
+                  <Code size={20} />
+                </div>
+                <span
+                  className="text-3xl"
+                  style={{ color: "var(--foreground)" }}
+                >
+                  {loading ? (
+                    <span style={{ color: "var(--muted-foreground)" }}>…</span>
+                  ) : (
                     <CountUp
                       from={0}
-                      to={experience.months}
+                      to={projects}
                       separator=","
                       direction="up"
                       duration={1}
                       className="count-up-text"
                       startCounting={false}
                     />
-                    <span className="count-up-text"> {t('about.card4')}</span>
-                  </>
-                )}
-              </span>
+                  )}
+                </span>
+              </div>
+              <p
+                className="font-semibold uppercase text-xs tracking-widest"
+                style={{ color: "var(--muted-foreground)" }}
+              >
+                Projects
+              </p>
             </div>
-              <p className="text-gray-500 font-medium uppercase font-Poppins text-sm">{t('about.card3')}</p>
-          </div>
-        </SpotlightCard>
+          </SpotlightCard>
+        </motion.div>
+
+        {/* Location — 1 col */}
+        <motion.div {...fadeUp(0.2)} className="col-span-1">
+          <SpotlightCard
+            className="h-full rounded-2xl p-6"
+            style={{ background: "var(--card)", border: "1px solid var(--border)" }}
+            spotlightColor="rgba(216, 121, 67, 0.1)"
+          >
+            <div className="flex flex-col gap-4 h-full justify-between">
+              <div
+                className="p-2.5 rounded-xl w-fit"
+                style={{ background: "var(--muted)", color: "var(--primary)" }}
+              >
+                <MapPin size={20} />
+              </div>
+              <div>
+                <p
+                  className="text-xs font-semibold uppercase tracking-widest mb-1"
+                  style={{ color: "var(--muted-foreground)" }}
+                >
+                  Location
+                </p>
+                <p
+                  className="text-base leading-snug"
+                  style={{ color: "var(--foreground)" }}
+                >
+                  Sidoarjo, Indonesia
+                </p>
+              </div>
+            </div>
+          </SpotlightCard>
+        </motion.div>
+
+        <motion.div {...fadeUp(0.25)} className="col-span-2">
+          <SpotlightCard
+            className="h-full rounded-2xl p-6"
+            style={{ background: "var(--card)", border: "1px solid var(--border)" }}
+            spotlightColor="rgba(95, 135, 135, 0.12)"
+          >
+            <div className="flex flex-col gap-6 h-full justify-between">
+              <div className="flex justify-between items-start w-full">
+                <div
+                  className="p-2.5 rounded-xl"
+                  style={{ background: "var(--muted)", color: "var(--secondary)" }}
+                >
+                  <Briefcase size={20} />
+                </div>
+                <span
+                  className="text-2xl text-right"
+                  style={{ color: "var(--foreground)" }}
+                >
+                  {loading ? (
+                    <span style={{ color: "var(--muted-foreground)" }}>…</span>
+                  ) : (
+                    <>
+                      <CountUp
+                        from={0}
+                        to={experience.years}
+                        separator=","
+                        direction="up"
+                        duration={1}
+                        className="count-up-text"
+                        startCounting={false}
+                      />
+                      <span
+                        className="count-up-text text-lg"
+                        style={{ color: "var(--muted-foreground)" }}
+                      >
+                        {" "}yr{" "}
+                      </span>
+                      <CountUp
+                        from={0}
+                        to={experience.months}
+                        separator=","
+                        direction="up"
+                        duration={1}
+                        className="count-up-text"
+                        startCounting={false}
+                      />
+                      <span
+                        className="count-up-text text-lg"
+                        style={{ color: "var(--muted-foreground)" }}
+                      >
+                        {" "}mo
+                      </span>
+                    </>
+                  )}
+                </span>
+              </div>
+              <p
+                className="font-semibold uppercase text-xs tracking-widest"
+                style={{ color: "var(--muted-foreground)" }}
+              >
+                Experience
+              </p>
+            </div>
+          </SpotlightCard>
+        </motion.div>
+
+        {/* Techstack — 2 cols */}
+        <motion.div {...fadeUp(0.3)} className="col-span-2">
+          <SpotlightCard
+            className="h-full rounded-2xl p-6"
+            style={{ background: "var(--card)", border: "1px solid var(--border)" }}
+            spotlightColor="rgba(216, 121, 67, 0.08)"
+          >
+            <div className="flex flex-col gap-4 h-full">
+              <p
+                className="text-xs font-semibold uppercase tracking-widest"
+                style={{ color: "var(--muted-foreground)" }}
+              >
+                Techstack
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {[
+                  { label: "React", color: "#61DAFB" },
+                  { label: "Next.js", color: "#c1c1c1" },
+                  { label: "PHP", color: "#8993BE" },
+                  { label: "MySQL", color: "#00758F" },
+                  { label: "Laravel", color: "#FF2D20" },
+                  { label: "Tailwind", color: "#38BDF8" },
+                  { label: "Git", color: "#F05032" },
+                  { label: "Figma", color: "#A259FF" },
+                  { label: "JavaScript", color: "#F7DF1E" },
+                  { label: "Python", color: "#3776AB" },
+                  { label: "Supabase", color: "#3ECF8E" },
+                  { label: "TypeScript", color: "#3178C6" },
+                  { label: "Laragon", color: "#38B0FE" },
+                ].map((tech) => (
+                  <span
+                    key={tech.label}
+                    className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium"
+                    style={{
+                      background: "var(--muted)",
+                      color: "var(--foreground)",
+                      border: "1px solid var(--border)",
+                    }}
+                  >
+                    <span
+                      className="w-1.5 h-1.5 rounded-full flex-shrink-0"
+                      style={{ backgroundColor: tech.color }}
+                    />
+                    {tech.label}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </SpotlightCard>
+        </motion.div>
+
       </div>
     </div>
   );
 }
 
 export default MyJourney;
->>>>>>> master

@@ -1,339 +1,149 @@
-<<<<<<< HEAD
-import React, { useEffect } from 'react'
-import Squares from '../components/Squares/Squares'
-import { Github, Instagram } from 'lucide-react';
-import { ArrowRight } from "lucide-react";
-import MyJourney from './MyJourney';
-import MyWork from './Mywork'
-import MyEducation from './MyEducation';
-import image from "../assets/image/Screenshot 2025-05-25 080528.png"
-import Tools from '../pages/Tools'
-import ShinyText from '../components/ShinyText/ShinyText';
-import Footer from './Footer';
-import AOS from 'aos';
-import 'aos/dist/aos.css';
-import { useTranslation } from 'react-i18next';
-import GithubChart from './Github';
+import React from "react";
+import {
+  Github,
+  Instagram,
+  Linkedin,
+  Sparkles,
+  ArrowRight,
+} from "lucide-react";
+import { motion } from "framer-motion";
+
+import MyJourney from "./MyJourney";
+import MyWork from "./Mywork";
+import MyEducation from "./MyEducation";
+import Tools from "../pages/Tools";
+import Footer from "./Footer";
+import GithubChart from "./Github";
+import Lanyard from "../components/Lanyard/Lanyard";
+import TextType from "../components/TextType/TextType";
 
 function Home() {
-  const { t } = useTranslation();
-
-  useEffect(() => {
-    AOS.init({
-      once: true,
-      duration: 500,
-    })
-  },[])
-
   return (
     <>
-    <div className='relative min-h-screen w-full overflow-hidden flex flex-col items-center justify-center text-center'>
-      <div className='absolute inset-0 -z-10'>
-      <Squares 
-        speed={0.5} 
-        squareSize={50}
-        direction='diagonal'
-        borderColor='#F0F0F0'
-        hoverFillColor='#F8F8F9'
-      />
-      </div>
-      <div className='mt-16 flex flex-col justify-center items-center p-4 text-center'>
-        <div className='relative flex flex-col md:flex-row justify-center items-center w-full max-w-2xl mb-7 md:mb-10'>
-          <img 
-            src={image}
-            alt="Profile"
-            data-aos="fade-up"
-            data-aos-delay="50"
-            className="rounded-full w-32 h-32 md:w-48 md:h-48 object-cover border-4 border-white shadow-lg mb-4 md:mb-0"
-          />
-          <div data-aos="fade-up" data-aos-delay="100" className='absolute top-1/4 -left-16 hidden md:flex items-center p-2 bg-white rounded-lg shadow-lg'>
-            <Github className='text-xl text-pink-500 mr-2'/>
-            <span className='text-sm font-medium font-Poppins'>
-              <ShinyText
-              text="raka-wijaya"
-              speed={2}
-              delay={0}
-              color="#000000"
-              shineColor="#ffffff"
-              spread={120}
-              direction="left"
-              yoyo={false}
-              pauseOnHover={false}
-              disabled={false}
-              />
-            </span>
-          </div>
-
-          <div data-aos="fade-up" data-aos-delay="150" className='absolute top-1/4 -right-16 hidden md:flex items-center p-2 bg-white rounded-lg shadow-lg'>
-            <Instagram className='text-xl text-purple-600 mr-2'/>
-            <span className='text-sm font-medium font-Poppins'>
-              <ShinyText
-              text="rakha_wijaya1"
-              speed={2}
-              delay={0}
-              color="#000000"
-              shineColor="#ffffff"
-              spread={120}
-              direction="left"
-              yoyo={false}
-              pauseOnHover={false}
-              disabled={false}
-              />
-            </span>
-          </div>
-
-          <div className='flex gap-4 md:hidden mt-4'>
-            <a data-aos="fade-right" data-aos-delay="100" href="https://github.com/raka-wijaya" target="_blank" rel="noopener noreferrer" className="flex items-center p-2 bg-white rounded-lg shadow-lg">
-              <Github className='text-xl text-pink-500'/>
-            </a>
-            <a data-aos="fade-left" data-aos-delay="150" href="https://www.instagram.com/rakha_wijaya1/" target="_blank" rel="noopener noreferrer" className="flex items-center p-2 bg-white rounded-lg shadow-lg">
-              <Instagram className='text-xl text-purple-600'/>
-            </a>
-          </div>
-        </div>
-
-        <div className='flex gap-2 sm:gap-4 mb-4 justify-center'>
-          <div data-aos="fade-up" data-aos-delay="200" className='bg-white rounded-full shadow-lg px-3 py-1 font-Poppins w-fit'>
-          <ShinyText
-          text="Fullstack Web Developer"
-          speed={2}
-          delay={0}
-          color="#000000"
-          shineColor="#ffffff"
-          spread={120}
-          direction="left"
-          yoyo={false}
-          pauseOnHover={false}
-          disabled={false}
-          /> 
-          </div>
-        </div>
-
-        <h1 data-aos="fade-up" data-aos-delay="250" className='mb-2 font-Poppins text-2xl md:text-5xl text-center'>
-          Salendra Rakha Wijaya
-        </h1>
+      <section className="relative min-h-screen w-full overflow-hidden flex items-center justify-center px-4 py-6 sm:px-6 sm:py-8 lg:px-8 lg:py-4">
         
-        <p data-aos="fade-up" data-aos-delay="300" className='text-sm sm:text-base md:text-lg text-gray-600 max-w-3xl mb-5 sm:mb-7 mx-auto px-4 font-Poppins text-justify'>
-          {t('home.title')}
-        </p>
+        <div className="absolute top-24 left-1/2 -translate-x-1/2 w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 bg-primary/10 rounded-full blur-3xl pointer-events-none -z-10" />
 
-        <button data-aos="fade-up" data-aos-delay="350" className="flex items-center gap-4 bg-black text-white px-5 py-3 rounded-full font-Poppins font-semibold hover:opacity-90 transition">
-            <a 
-              href="https://www.linkedin.com/in/salendrawijaya/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className='flex items-center gap-4'
-            >
-              <span className='text-base font-Poppins font-medium'>{t('navbar.getInTouch')}</span>
-              <div className="w-6 h-6 flex items-center justify-center bg-white rounded-full">
-                <ArrowRight className="text-black" size={18} />
-              </div>
-            </a>
-        </button>
-      </div>
-    </div>
-    <MyJourney />
-    <MyWork/>
-    <MyEducation/>
-    <Tools/>
-    <GithubChart/>
-    <Footer/>
+        <div className="w-full max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-0 lg:gap-8 items-center">
+          
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            className="lg:col-span-6 flex flex-col items-center lg:items-start text-center lg:text-left z-10 order-2 lg:order-1"
+          >
+            
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[2.1rem] xl:text-4xl 2xl:text-5xl font-bold tracking-tight text-foreground leading-tight mb-4 max-w-3xl lg:whitespace-nowrap">
+              Hi, I'm{" "}
+              <span className="bg-gradient-to-r from-primary via-primary to-primary bg-clip-text text-transparent">
+                Salendra Rakha Wijaya
+              </span>
+            </h1>
+
+            <TextType
+              as="p"
+              className="text-base sm:text-xl font-semibold text-foreground mb-4 flex items-center justify-center lg:justify-start gap-2"
+              text={[
+                "Fullstack Web Developer & UI Enthusiast",
+                "Happy coding!",
+              ]}
+              typingSpeed={75}
+              pauseDuration={1500}
+              showCursor
+              cursorCharacter="|"
+              deletingSpeed={50}
+              variableSpeedEnabled={false}
+              variableSpeedMin={60}
+              variableSpeedMax={120}
+              cursorBlinkDuration={0.5}
+            />
+
+            <p className="text-sm sm:text-base text-muted-foreground max-w-xl leading-relaxed mb-7 sm:mb-8">
+              Building scalable, responsive web applications with clean code,
+              modern interfaces, and seamless user experiences.
+            </p>
+
+            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3 sm:gap-4 mb-7 sm:mb-8">
+              <a
+                href="https://www.linkedin.com/in/salendrawijaya/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-center gap-3 bg-primary text-primary-foreground px-5 sm:px-6 py-3 sm:py-3.5 rounded-full font-medium text-sm hover:brightness-110 transition-all shadow-md hover:shadow-lg active:scale-95"
+              >
+                <span>Get In Touch</span>
+
+                <div className="w-6 h-6 flex items-center justify-center bg-primary-foreground text-primary rounded-full group-hover:translate-x-0.5 transition-transform">
+                  <ArrowRight size={14} />
+                </div>
+              </a>
+
+              <a
+                href="/Portofolio"
+                className="flex items-center gap-2 border border-border px-5 sm:px-6 py-3 sm:py-3.5 rounded-full font-medium text-sm text-foreground hover:bg-muted transition-all active:scale-95"
+              >
+                <Sparkles size={16} className="text-primary" />
+                <span>View Projects</span>
+              </a>
+            </div>
+
+            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2.5 sm:gap-3">
+              <a
+                href="https://github.com/raka-wijaya"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="GitHub"
+                className="flex items-center gap-2 px-3 py-2 rounded-xl bg-card/80 border border-border hover:border-primary/50 text-foreground hover:text-primary transition-all shadow-sm"
+              >
+                <Github size={17} />
+                <span className="text-xs font-medium">raka-wijaya</span>
+              </a>
+
+              <a
+                href="https://www.instagram.com/rakha_wijaya1/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+                className="flex items-center gap-2 px-3 py-2 rounded-xl bg-card/80 border border-border hover:border-primary/50 text-foreground hover:text-primary transition-all shadow-sm"
+              >
+                <Instagram size={17} />
+                <span className="text-xs font-medium">rakha_wijaya1</span>
+              </a>
+
+              <a
+                href="https://www.linkedin.com/in/salendrawijaya/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn"
+                className="flex items-center gap-2 px-3 py-2 rounded-xl bg-card/80 border border-border hover:border-primary/50 text-foreground hover:text-primary transition-all shadow-sm"
+              >
+                <Linkedin size={17} />
+                <span className="text-xs font-medium">salendrawijaya</span>
+              </a>
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="lg:col-span-6 relative flex items-center justify-center order-1 lg:order-2 w-full"
+          >
+           
+            <div className="w-full h-[530px] sm:h-[530px] md:h-[550px] lg:h-[570px]">
+              <Lanyard className="relative z-0 w-full h-full flex justify-center items-center" />
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      <MyJourney />
+      <MyWork />
+      <MyEducation />
+      <Tools />
+      <GithubChart />
+      <Footer />
     </>
-  )
+  );
 }
 
-export default Home
-=======
-import React from 'react'
-import Squares from '../components/Squares/Squares'
-import { Github, Instagram } from 'lucide-react';
-import { ArrowRight } from "lucide-react";
-import MyJourney from './MyJourney';
-import MyWork from './Mywork'
-import MyEducation from './MyEducation';
-import image from "../assets/image/Screenshot 2025-05-25 080528.png"
-import Tools from '../pages/Tools'
-import ShinyText from '../components/ShinyText/ShinyText';
-import Footer from './Footer';
-import { motion } from 'framer-motion';
-import { useTranslation } from 'react-i18next';
-import GithubChart from './Github';
-
-function Home() {
-  const { t } = useTranslation();
-
-  return (
-    <>
-    <div className='relative min-h-screen w-full overflow-hidden flex flex-col items-center justify-center text-center'>
-      <div className='absolute inset-0 -z-10'>
-      <Squares 
-        speed={0.5} 
-        squareSize={50}
-        direction='diagonal'
-        borderColor='#F0F0F0'
-        hoverFillColor='#F8F8F9'
-      />
-      </div>
-      <div className='mt-16 flex flex-col justify-center items-center p-4 text-center'>
-        <div className='relative flex flex-col md:flex-row justify-center items-center w-full max-w-2xl mb-7 md:mb-10'>
-          <motion.img 
-            src={image}
-            alt="Profile"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.05 }}
-            className="rounded-full w-32 h-32 md:w-48 md:h-48 object-cover border-4 border-white shadow-lg mb-4 md:mb-0"
-          />
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className='absolute top-1/4 -left-16 hidden md:flex items-center p-2 bg-white rounded-lg shadow-lg'
-          >
-            <Github className='text-xl text-pink-500 mr-2'/>
-            <span className='text-sm font-medium font-Poppins'>
-              <ShinyText
-              text="raka-wijaya"
-              speed={2}
-              delay={0}
-              color="#000000"
-              shineColor="#ffffff"
-              spread={120}
-              direction="left"
-              yoyo={false}
-              pauseOnHover={false}
-              disabled={false}
-              />
-            </span>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.15 }}
-            className='absolute top-1/4 -right-16 hidden md:flex items-center p-2 bg-white rounded-lg shadow-lg'
-          >
-            <Instagram className='text-xl text-purple-600 mr-2'/>
-            <span className='text-sm font-medium font-Poppins'>
-              <ShinyText
-              text="rakha_wijaya1"
-              speed={2}
-              delay={0}
-              color="#000000"
-              shineColor="#ffffff"
-              spread={120}
-              direction="left"
-              yoyo={false}
-              pauseOnHover={false}
-              disabled={false}
-              />
-            </span>
-          </motion.div>
-
-          <div className='flex gap-4 md:hidden mt-4'>
-            <motion.a
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              href="https://github.com/raka-wijaya"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center p-2 bg-white rounded-lg shadow-lg"
-            >
-              <Github className='text-xl text-pink-500'/>
-            </motion.a>
-            <motion.a
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.15 }}
-              href="https://www.instagram.com/rakha_wijaya1/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center p-2 bg-white rounded-lg shadow-lg"
-            >
-              <Instagram className='text-xl text-purple-600'/>
-            </motion.a>
-          </div>
-        </div>
-
-        <div className='flex gap-2 sm:gap-4 mb-4 justify-center'>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className='bg-white rounded-full shadow-lg px-3 py-1 font-Poppins w-fit'
-          >
-          <ShinyText
-          text="Fullstack Web Developer"
-          speed={2}
-          delay={0}
-          color="#000000"
-          shineColor="#ffffff"
-          spread={120}
-          direction="left"
-          yoyo={false}
-          pauseOnHover={false}
-          disabled={false}
-          /> 
-          </motion.div>
-        </div>
-
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.25 }}
-          className='mb-2 font-Poppins text-2xl md:text-5xl text-center'
-        >
-          Salendra Rakha Wijaya
-        </motion.h1>
-        
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          className='text-sm sm:text-base md:text-lg text-gray-600 max-w-3xl mb-5 sm:mb-7 mx-auto px-4 font-Poppins'
-        >
-          {t('home.title')}
-        </motion.p>
-
-        <motion.button
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.35 }}
-          className="flex items-center gap-4 bg-black text-white px-5 py-3 rounded-full font-Poppins font-semibold hover:opacity-90 transition"
-        >
-            <a 
-              href="https://www.linkedin.com/in/salendrawijaya/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className='flex items-center gap-4'
-            >
-              <span className='text-base font-Poppins font-medium'>{t('navbar.getInTouch')}</span>
-              <div className="w-6 h-6 flex items-center justify-center bg-white rounded-full">
-                <ArrowRight className="text-black" size={18} />
-              </div>
-            </a>
-        </motion.button>
-      </div>
-    </div>
-    <MyJourney />
-    <MyWork/>
-    <MyEducation/>
-    <Tools/>
-    <GithubChart/>
-    <Footer/>
-    </>
-  )
-}
-
-export default Home
->>>>>>> master
+export default Home;

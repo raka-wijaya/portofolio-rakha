@@ -1,14 +1,468 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 @import "tailwindcss";
 @plugin "daisyui";
 
-
-@font-face {
-  font-family: "Poppins";
-  src: url("../src/assets/font/Poppins-Regular.ttf") format("truetype");
-}
-
+/* Tailwind CSS v4 Theme Configuration */
 @theme {
-  --font-Poppins: "Poppins", sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-inter: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-Poppins: "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
 }
 
+/* Custom dark variant for Tailwind v4 */
+@custom-variant dark (&:where(.dark, .dark *, [data-theme="dark"], [data-theme="dark"] *, [data-mode="dark"], [data-mode="dark"] *));
 
+/* ==========================================================================
+   CSS VARIABLES SYSTEM
+   ========================================================================== */
+
+/* LIGHT MODE (Default) */
+:root,
+.light,
+[data-theme="light"],
+[data-mode="light"] {
+  --font-main: "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  /* Theme Tokens */
+  --primary: #d87943;
+  --primary-foreground: #ffffff;
+  --secondary: #527575;
+  --secondary-foreground: #ffffff;
+  --accent: #eeeeee;
+  --accent-foreground: #111827;
+  --background: #ffffff;
+  --foreground: #111827;
+  --card: #ffffff;
+  --card-foreground: #111827;
+  --popover: #ffffff;
+  --popover-foreground: #111827;
+  --muted: #f3f4f6;
+  --muted-foreground: #6b7280;
+  --destructive: #ef4444;
+  --destructive-foreground: #fafafa;
+  --border: #e5e7eb;
+  --input: #e5e7eb;
+  --ring: #d87943;
+
+  /* Chart Tokens */
+  --chart-1: #5f8787;
+  --chart-2: #e78a53;
+  --chart-3: #fbcb97;
+  --chart-4: #888888;
+  --chart-5: #999999;
+
+  /* DaisyUI color bridging */
+  --color-primary: #d87943;
+  --color-primary-content: #ffffff;
+  --color-secondary: #527575;
+  --color-secondary-content: #ffffff;
+  --color-accent: #eeeeee;
+  --color-accent-content: #111827;
+  --color-base-100: #ffffff;
+  --color-base-200: #f3f4f6;
+  --color-base-300: #e5e7eb;
+  --color-base-content: #111827;
+}
+
+/* DARK MODE */
+.dark,
+[data-theme="dark"],
+[data-mode="dark"] {
+  --primary: #e78a53;
+  --primary-foreground: #121113;
+  --secondary: #5f8787;
+  --secondary-foreground: #121113;
+  --accent: #333333;
+  --accent-foreground: #c1c1c1;
+  --background: #121113;
+  --foreground: #c1c1c1;
+  --card: #121212;
+  --card-foreground: #c1c1c1;
+  --popover: #121113;
+  --popover-foreground: #c1c1c1;
+  --muted: #222222;
+  --muted-foreground: #888888;
+  --destructive: #5f8787;
+  --destructive-foreground: #121113;
+  --border: #222222;
+  --input: #222222;
+  --ring: #e78a53;
+
+  --chart-1: #5f8787;
+  --chart-2: #e78a53;
+  --chart-3: #fbcb97;
+  --chart-4: #888888;
+  --chart-5: #999999;
+
+  /* DaisyUI dark color bridging */
+  --color-primary: #e78a53;
+  --color-primary-content: #121113;
+  --color-secondary: #5f8787;
+  --color-secondary-content: #121113;
+  --color-accent: #333333;
+  --color-accent-content: #c1c1c1;
+  --color-base-100: #121113;
+  --color-base-200: #121212;
+  --color-base-300: #222222;
+  --color-base-content: #c1c1c1;
+}
+
+/* System Dark Mode Preference (auto applies if not explicitly set to light) */
+@media (prefers-color-scheme: dark) {
+  :root:not(.light):not([data-theme="light"]):not([data-mode="light"]) {
+    --primary: #e78a53;
+    --primary-foreground: #121113;
+    --secondary: #5f8787;
+    --secondary-foreground: #121113;
+    --accent: #333333;
+    --accent-foreground: #c1c1c1;
+    --background: #121113;
+    --foreground: #c1c1c1;
+    --card: #121212;
+    --card-foreground: #c1c1c1;
+    --popover: #121113;
+    --popover-foreground: #c1c1c1;
+    --muted: #222222;
+    --muted-foreground: #888888;
+    --destructive: #5f8787;
+    --destructive-foreground: #121113;
+    --border: #222222;
+    --input: #222222;
+    --ring: #e78a53;
+
+    --chart-1: #5f8787;
+    --chart-2: #e78a53;
+    --chart-3: #fbcb97;
+    --chart-4: #888888;
+    --chart-5: #999999;
+
+    --color-primary: #e78a53;
+    --color-primary-content: #121113;
+    --color-secondary: #5f8787;
+    --color-secondary-content: #121113;
+    --color-accent: #333333;
+    --color-accent-content: #c1c1c1;
+    --color-base-100: #121113;
+    --color-base-200: #121212;
+    --color-base-300: #222222;
+    --color-base-content: #c1c1c1;
+  }
+}
+
+/* ==========================================================================
+   GLOBAL TYPOGRAPHY & BASE STYLES
+   ========================================================================== */
+
+html {
+  font-family: "Inter", ui-sans-serif, system-ui, sans-serif !important;
+  color-scheme: light dark;
+  scroll-behavior: smooth;
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+body {
+  font-family: "Inter", ui-sans-serif, system-ui, sans-serif !important;
+  background-color: var(--background);
+  color: var(--foreground);
+  min-height: 100vh;
+  margin: 0;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+*,
+*::before,
+*::after {
+  font-family: "Inter", ui-sans-serif, system-ui, sans-serif !important;
+  box-sizing: border-box;
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Inter", ui-sans-serif, system-ui, sans-serif !important;
+  color: var(--foreground);
+}
+
+/* Focus Visible */
+:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+/* Selection */
+::selection {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+}
+
+/* ==========================================================================
+   UI COMPONENTS & ELEMENTS THEMING
+   ========================================================================== */
+
+/* Form Elements: Input, Textarea, Select */
+input,
+textarea,
+select,
+.input {
+  font-family: "Inter", ui-sans-serif, system-ui, sans-serif !important;
+  background-color: var(--card);
+  color: var(--foreground);
+  border: 1px solid var(--input);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+input:focus,
+textarea:focus,
+select:focus,
+.input:focus {
+  outline: none;
+  border-color: var(--ring);
+  box-shadow: 0 0 0 2px var(--ring);
+}
+
+input:disabled,
+textarea:disabled,
+select:disabled,
+.input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: var(--muted);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--muted-foreground);
+}
+
+/* Buttons */
+button,
+[type="button"],
+[type="reset"],
+[type="submit"],
+.btn {
+  font-family: "Inter", ui-sans-serif, system-ui, sans-serif !important;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+button:disabled,
+[type="button"]:disabled,
+[type="reset"]:disabled,
+[type="submit"]:disabled,
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Primary Action Buttons */
+.bg-black,
+.bg-\[\#333333\],
+.btn-primary {
+  background-color: var(--primary) !important;
+  color: var(--primary-foreground) !important;
+  border-color: var(--primary) !important;
+}
+
+.bg-black:hover,
+.bg-\[\#333333\]:hover,
+.btn-primary:hover {
+  filter: brightness(1.08);
+}
+
+/* Cards & Surfaces */
+.card,
+.modal-box,
+dialog,
+[role="dialog"] {
+  background-color: var(--card);
+  color: var(--card-foreground);
+  border-color: var(--border);
+}
+
+/* Popovers & Dropdowns */
+.popover,
+.dropdown-content,
+[role="menu"] {
+  background-color: var(--popover);
+  color: var(--popover-foreground);
+  border-color: var(--border);
+}
+
+/* Badges */
+.badge {
+  background-color: var(--muted);
+  color: var(--muted-foreground);
+  border: 1px solid var(--border);
+}
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  color: var(--foreground);
+}
+
+th,
+td {
+  border-color: var(--border);
+}
+
+th {
+  background-color: var(--muted);
+  color: var(--foreground);
+}
+
+/* Navbar & Sidebar */
+nav,
+.navbar,
+aside,
+.sidebar {
+  border-color: var(--border);
+}
+
+/* Activity / GitHub Calendar Chart integration */
+.react-activity-calendar,
+.react-github-calendar {
+  --activity-calendar-level-0: var(--muted);
+  --activity-calendar-level-1: var(--chart-1);
+  --activity-calendar-level-2: var(--chart-2);
+  --activity-calendar-level-3: var(--chart-3);
+  --activity-calendar-level-4: var(--chart-4);
+  color: var(--foreground);
+}
+
+/* ==========================================================================
+   DARK MODE COMPONENT ADAPTATIONS
+   ========================================================================== */
+
+/* Dark mode overrides for high-contrast presentation */
+.dark body,
+[data-theme="dark"] body,
+[data-mode="dark"] body {
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+.dark .bg-white,
+[data-theme="dark"] .bg-white,
+[data-mode="dark"] .bg-white {
+  background-color: var(--card) !important;
+  color: var(--card-foreground) !important;
+}
+
+.dark .text-gray-900,
+.dark .text-gray-800,
+.dark .text-gray-700,
+.dark .text-black,
+[data-theme="dark"] .text-gray-900,
+[data-theme="dark"] .text-gray-800,
+[data-theme="dark"] .text-gray-700,
+[data-theme="dark"] .text-black,
+[data-mode="dark"] .text-gray-900,
+[data-mode="dark"] .text-gray-800,
+[data-mode="dark"] .text-gray-700,
+[data-mode="dark"] .text-black {
+  color: var(--foreground) !important;
+}
+
+.dark .text-gray-600,
+.dark .text-gray-500,
+.dark .text-gray-400,
+[data-theme="dark"] .text-gray-600,
+[data-theme="dark"] .text-gray-500,
+[data-theme="dark"] .text-gray-400,
+[data-mode="dark"] .text-gray-600,
+[data-mode="dark"] .text-gray-500,
+[data-mode="dark"] .text-gray-400 {
+  color: var(--muted-foreground) !important;
+}
+
+.dark .bg-gray-50,
+.dark .bg-gray-100,
+.dark .bg-gray-200,
+[data-theme="dark"] .bg-gray-50,
+[data-theme="dark"] .bg-gray-100,
+[data-theme="dark"] .bg-gray-200,
+[data-mode="dark"] .bg-gray-50,
+[data-mode="dark"] .bg-gray-100,
+[data-mode="dark"] .bg-gray-200 {
+  background-color: var(--muted) !important;
+  color: var(--foreground) !important;
+}
+
+.dark .border-gray-100,
+.dark .border-gray-200,
+.dark .border-gray-300,
+[data-theme="dark"] .border-gray-100,
+[data-theme="dark"] .border-gray-200,
+[data-theme="dark"] .border-gray-300,
+[data-mode="dark"] .border-gray-100,
+[data-mode="dark"] .border-gray-200,
+[data-mode="dark"] .border-gray-300 {
+  border-color: var(--border) !important;
+}
+
+/* System dark media query adaptations */
+@media (prefers-color-scheme: dark) {
+  :root:not(.light):not([data-theme="light"]):not([data-mode="light"]) body {
+    background-color: var(--background);
+    color: var(--foreground);
+  }
+
+  :root:not(.light):not([data-theme="light"]):not([data-mode="light"]) .bg-white {
+    background-color: var(--card) !important;
+    color: var(--card-foreground) !important;
+  }
+
+  :root:not(.light):not([data-theme="light"]):not([data-mode="light"]) .text-gray-900,
+  :root:not(.light):not([data-theme="light"]):not([data-mode="light"]) .text-gray-800,
+  :root:not(.light):not([data-theme="light"]):not([data-mode="light"]) .text-gray-700,
+  :root:not(.light):not([data-theme="light"]):not([data-mode="light"]) .text-black {
+    color: var(--foreground) !important;
+  }
+
+  :root:not(.light):not([data-theme="light"]):not([data-mode="light"]) .text-gray-600,
+  :root:not(.light):not([data-theme="light"]):not([data-mode="light"]) .text-gray-500,
+  :root:not(.light):not([data-theme="light"]):not([data-mode="light"]) .text-gray-400 {
+    color: var(--muted-foreground) !important;
+  }
+
+  :root:not(.light):not([data-theme="light"]):not([data-mode="light"]) .bg-gray-50,
+  :root:not(.light):not([data-theme="light"]):not([data-mode="light"]) .bg-gray-100,
+  :root:not(.light):not([data-theme="light"]):not([data-mode="light"]) .bg-gray-200 {
+    background-color: var(--muted) !important;
+    color: var(--foreground) !important;
+  }
+
+  :root:not(.light):not([data-theme="light"]):not([data-mode="light"]) .border-gray-100,
+  :root:not(.light):not([data-theme="light"]):not([data-mode="light"]) .border-gray-200,
+  :root:not(.light):not([data-theme="light"]):not([data-mode="light"]) .border-gray-300 {
+    border-color: var(--border) !important;
+  }
+}

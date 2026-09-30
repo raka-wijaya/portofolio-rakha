@@ -1,316 +1,375 @@
-<<<<<<< HEAD
-  import React, { useState, useEffect } from 'react';
-  import { supabase } from '../lib/supabaseClient';
-  import { useTranslation } from 'react-i18next';
-  import i18n from '../i18n';
+import React, { useState, useEffect } from "react";
+import { supabase } from "../lib/supabaseClient";
+import { motion } from "framer-motion";
 
-  function Mywork() {
-    const [workData, setWorkData] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const { t } = useTranslation();
+import Timeline from "@mui/lab/Timeline";
+import TimelineItem from "@mui/lab/TimelineItem";
+import TimelineSeparator from "@mui/lab/TimelineSeparator";
+import TimelineConnector from "@mui/lab/TimelineConnector";
+import TimelineContent from "@mui/lab/TimelineContent";
+import TimelineDot from "@mui/lab/TimelineDot";
 
-    useEffect(() => {
-      const fetchWork = async () => {
-        try {
-          const { data, error } = await supabase
-            .from('work_experience')
-            .select('*')
-            .order('start_date', { ascending: false });
+function Mywork() {
+  const [workData, setWorkData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-          if (error) throw error;
+  useEffect(() => {
+    const fetchWork = async () => {
+      try {
+        const { data, error } = await supabase
+          .from("work_experience")
+          .select("*")
+          .order("start_date", { ascending: false });
 
-          setWorkData(data || []);
-        } catch (error) {
-          console.error('Error fetch work:', error.message);
-        } finally {
-          setLoading(false);
-        }
-      };
+        if (error) throw error;
 
-      fetchWork();
-    }, []);
+        setWorkData(data || []);
+      } catch (error) {
+        console.error("Error fetch work:", error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-    if (loading) {
-      return (
-        <div className="container mx-auto py-6 px-4 md:px-12 mt-5">
-      <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
+    fetchWork();
+  }, []);
 
-        {/* Skeleton Title */}
-        <div className="lg:w-1/3">
-          <div className="skeleton h-10 w-48"></div>
+  if (loading) {
+    return (
+      <section className="w-full px-4 sm:px-6 lg:px-10 py-10 font-sans">
+        <div className="text-center mb-10">
+          <div className="skeleton h-12 w-64 mx-auto"></div>
         </div>
 
-        {/* Skeleton Cards */}
-        <div className="lg:w-2/3 flex flex-col gap-6">
-          {[...Array(1)].map((_, index) => (
-            <div
-              key={index}
-              className="bg-white p-6 rounded-lg shadow-sm"
-            >
-              <div className="flex flex-col sm:flex-row gap-5">
+        <div className="w-full flex flex-col gap-6">
+          {[...Array(2)].map((_, index) => (
+            <div key={index} className="flex gap-4">
+              <div className="flex flex-col items-center">
+                <div className="skeleton w-3.5 h-3.5 rounded-full"></div>
 
-                {/* Logo */}
-                <div className="skeleton w-14 h-14 rounded-xl"></div>
-
-                {/* Content */}
-                <div className="flex-1 space-y-3">
-                  <div className="skeleton h-6 w-52"></div>
-                  <div className="skeleton h-4 w-40"></div>
-                  <div className="skeleton h-4 w-36"></div>
-
-                  <div className="space-y-2 mt-4">
-                    <div className="skeleton h-4 w-full"></div>
-                    <div className="skeleton h-4 w-full"></div>
-                    <div className="skeleton h-4 w-3/4"></div>
-                  </div>
-                </div>
+                {index === 0 && (
+                  <div className="skeleton w-0.5 h-40 mt-2"></div>
+                )}
               </div>
 
-              {/* Tags */}
-              <div className="flex flex-wrap gap-2 mt-5">
-                <div className="skeleton h-8 w-20 rounded-full"></div>
-                <div className="skeleton h-8 w-24 rounded-full"></div>
-                <div className="skeleton h-8 w-16 rounded-full"></div>
-                <div className="skeleton h-8 w-28 rounded-full"></div>
-              </div>
+              <div className="flex-1 skeleton h-48 rounded-2xl"></div>
             </div>
           ))}
         </div>
-
-      </div>
-    </div>
-      );
-    }
-
-    return (
-      <div className="container mx-auto py-6 px-4 md:px-12 mt-5">
-        <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
-          
-          <div className="lg:w-1/3">
-            <h2 data-aos="fade-up" data-aos-delay="50" className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 font-Poppins">
-              {t('work.title')}
-            </h2>
-          </div>
-
-          <div data-aos="fade-up" data-aos-delay="100" className="lg:w-2/3 flex flex-col gap-6"> 
-            {workData.length > 0 ? (
-              workData.map((work) => (
-                <div key={work.id} className="bg-white p-6 rounded-lg shadow-sm">
-
-                  <div className="flex flex-col sm:flex-row gap-5 mb-4 text-center sm:text-left">
-
-                    {work.image && (
-                      <img 
-                        src={work.image} 
-                        alt={work.company_name} 
-                        className="w-14 h-14 object-cover rounded-xl"
-                      />
-                    )}
-
-                    <div className="flex flex-col gap-3">
-                      <h1 className="font-semibold text-lg text-black">
-                        {work.company_name}
-                      </h1>
-
-                      <p className="text-sm text-gray-500">
-                        {work.position}
-                      </p>
-
-                      <p className="text-sm text-gray-500">
-                        {new Date(work.start_date).toLocaleDateString(i18n.language, { month: 'short', year: 'numeric' })} -{' '}
-                        {(!work.end_date || work.end_date === '0000-00-00')
-                          ? t("work.now")
-                          : new Date(work.end_date).toLocaleDateString(i18n.language === "id" ? "id-ID" : "en-US", { month: "short", year: "numeric" })}
-                      </p>
-
-                      <p className="text-sm text-gray-600 whitespace-pre-line text-justify">
-                        {i18n.language === "en" ? work.job_description : work.job_description_id}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex flex-wrap gap-2">
-                    {work.tools_used?.split(',').map((tech, index) => (
-                      <span key={index} className="border px-3 py-1 text-xs rounded-full">
-                        {tech.trim()}
-                      </span>
-                    ))}
-                  </div>
-
-                </div>
-              ))
-            ) : (
-              <p className="text-gray-400">No work experience found.</p>
-            )}
-          </div>
-        </div>
-      </div>
+      </section>
     );
   }
 
-  export default Mywork;
-=======
-  import React, { useState, useEffect } from 'react';
-  import { supabase } from '../lib/supabaseClient';
-  import { useTranslation } from 'react-i18next';
-  import i18n from '../i18n';
-  import { motion } from 'framer-motion';
+  return (
+    <section className="w-full px-4 sm:px-6 lg:px-10 py-10 font-sans">
+      {/* TITLE */}
+      <div className="text-center mb-10 sm:mb-12">
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{
+            duration: 0.5,
+            ease: "easeOut",
+          }}
+          className="
+            text-3xl
+            sm:text-4xl
+            lg:text-5xl
+            font-bold
+            text-[var(--foreground)]
+            font-Poppins
+          "
+        >
+          Work Experience
+        </motion.h2>
+      </div>
 
-  function Mywork() {
-    const [workData, setWorkData] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const { t } = useTranslation();
+      {/* BASIC MUI TIMELINE */}
+      <div className="w-full">
+        <Timeline
+          sx={{
+            p: 0,
+            m: 0,
+            width: "100%",
 
-    useEffect(() => {
-      const fetchWork = async () => {
-        try {
-          const { data, error } = await supabase
-            .from('work_experience')
-            .select('*')
-            .order('start_date', { ascending: false });
+            "& .MuiTimelineItem-root": {
+              width: "100%",
+              minHeight: 0,
+            },
 
-          if (error) throw error;
+            "& .MuiTimelineItem-root::before": {
+              display: "none",
+            },
 
-          setWorkData(data || []);
-        } catch (error) {
-          console.error('Error fetch work:', error.message);
-        } finally {
-          setLoading(false);
-        }
-      };
+            "& .MuiTimelineSeparator-root": {
+              flex: "0 0 24px",
+            },
 
-      fetchWork();
-    }, []);
+            "& .MuiTimelineContent-root": {
+              flex: 1,
+              minWidth: 0,
+            },
+          }}
+        >
+          {workData.map((work, index) => (
+            <TimelineItem key={work.id}>
+              {/* =========================
+                  SEPARATOR
+              ========================== */}
+              <TimelineSeparator>
+                <motion.div
+                  initial={{
+                    opacity: 0,
+                    scale: 0.7,
+                  }}
+                  whileInView={{
+                    opacity: 1,
+                    scale: 1,
+                  }}
+                  viewport={{
+                    once: true,
+                  }}
+                  transition={{
+                    duration: 0.4,
+                    delay: index * 0.08,
+                  }}
+                >
+                  <TimelineDot
+                    sx={{
+                      bgcolor: "var(--primary)",
+                      width: 12,
+                      height: 12,
+                      margin: 0,
+                      border: "none",
+                      boxShadow:
+                        "0 0 10px color-mix(in srgb, var(--primary) 55%, transparent)",
+                    }}
+                  />
+                </motion.div>
 
-    if (loading) {
-      return (
-        <div className="container mx-auto py-6 px-4 md:px-12 mt-5">
-      <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
+                {index < workData.length - 1 && (
+                  <TimelineConnector
+                    sx={{
+                      width: "2px",
+                      bgcolor: "var(--border)",
+                    }}
+                  />
+                )}
+              </TimelineSeparator>
 
-        {/* Skeleton Title */}
-        <div className="lg:w-1/3">
-          <div className="skeleton h-10 w-48"></div>
-        </div>
+              {/* =========================
+                  CONTENT
+              ========================== */}
+              <TimelineContent
+                sx={{
+                  paddingTop: 0,
+                  paddingBottom: "32px",
+                  paddingLeft: {
+                    xs: "12px",
+                    sm: "20px",
+                    md: "24px",
+                  },
+                  paddingRight: 0,
+                  flex: 1,
+                  minWidth: 0,
+                }}
+              >
+                <motion.div
+                  initial={{
+                    opacity: 0,
+                    y: 20,
+                  }}
+                  whileInView={{
+                    opacity: 1,
+                    y: 0,
+                  }}
+                  viewport={{
+                    once: true,
+                    amount: 0.15,
+                  }}
+                  transition={{
+                    duration: 0.5,
+                    delay: index * 0.08,
+                    ease: "easeOut",
+                  }}
+                  className="w-full"
+                >
+                  {/* =========================
+                      CARD
+                  ========================== */}
+                  <div
+                    className="
+                      w-full
+                      rounded-2xl
+                      border
+                      border-[var(--border)]
+                      bg-[var(--card)]
+                      p-5
+                      sm:p-6
+                      md:p-7
+                      text-left
+                    "
+                  >
+                    {/* DATE */}
+                    <p
+                      className="
+                        text-xs
+                        sm:text-sm
+                        font-semibold
+                        tracking-wide
+                        text-[var(--muted-foreground)]
+                        mb-3
+                      "
+                    >
+                      {new Date(work.start_date).toLocaleDateString(
+                        "en-US",
+                        {
+                          month: "short",
+                          year: "numeric",
+                        }
+                      )}{" "}
+                      -{" "}
+                      {!work.end_date || work.end_date === "0000-00-00"
+                        ? "Current"
+                        : new Date(work.end_date).toLocaleDateString(
+                            "en-US",
+                            {
+                              month: "short",
+                              year: "numeric",
+                            }
+                          )}
+                    </p>
 
-        {/* Skeleton Cards */}
-        <div className="lg:w-2/3 flex flex-col gap-6">
-          {[...Array(1)].map((_, index) => (
-            <div
-              key={index}
-              className="bg-white p-6 rounded-lg shadow-sm"
-            >
-              <div className="flex flex-col sm:flex-row gap-5">
+                    {/* MAIN CONTENT */}
+                    <div
+                      className="
+                        flex
+                        flex-col
+                        sm:flex-row
+                        items-start
+                        gap-4
+                        sm:gap-5
+                      "
+                    >
+                      {/* LOGO */}
+                      {work.image && (
+                        <img
+                          src={work.image}
+                          alt={work.company_name}
+                          className="
+                            w-14
+                            h-14
+                            sm:w-16
+                            sm:h-16
+                            object-cover
+                            rounded-xl
+                            border
+                            border-[var(--border)]
+                            shrink-0
+                            mx-auto
+                            sm:mx-0
+                          "
+                        />
+                      )}
 
-                {/* Logo */}
-                <div className="skeleton w-14 h-14 rounded-xl"></div>
+                      {/* INFORMATION */}
+                      <div className="flex-1 min-w-0">
+                        <h3
+                          className="
+                            text-lg
+                            sm:text-xl
+                            font-bold
+                            text-[var(--foreground)]
+                            leading-snug
+                            text-center
+                            sm:text-left
+                          "
+                        >
+                          <span>{work.position}</span>
 
-                {/* Content */}
-                <div className="flex-1 space-y-3">
-                  <div className="skeleton h-6 w-52"></div>
-                  <div className="skeleton h-4 w-40"></div>
-                  <div className="skeleton h-4 w-36"></div>
+                          <span
+                            className="
+                              text-[var(--muted-foreground)]
+                              font-normal
+                              mx-2
+                            "
+                          >
+                            -
+                          </span>
 
-                  <div className="space-y-2 mt-4">
-                    <div className="skeleton h-4 w-full"></div>
-                    <div className="skeleton h-4 w-full"></div>
-                    <div className="skeleton h-4 w-3/4"></div>
+                          <span className="text-[var(--primary)] font-semibold">
+                            {work.company_name}
+                          </span>
+                        </h3>
+
+                        {/* DESCRIPTION */}
+                        <p
+                          className="
+                            mt-2
+                            text-sm
+                            sm:text-base
+                            text-[var(--foreground)]/80
+                            leading-relaxed
+                            text-justify
+                          "
+                        >
+                          {work.job_description ||
+                            work.job_description_id}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* BOTTOM */}
+                    <div
+                      className="
+                        flex
+                        flex-col
+                        sm:flex-row
+                        sm:items-center
+                        sm:justify-between
+                        gap-4
+                        pt-4
+                        mt-5
+                        border-t
+                        border-[var(--border)]/50
+                      "
+                    >
+                      {/* TOOLS */}
+                      <div className="flex flex-wrap gap-2">
+                        {work.tools_used &&
+                          work.tools_used
+                            .split(",")
+                            .map((tech, idx) => (
+                              <span
+                                key={idx}
+                                className="
+                                  border
+                                  border-[var(--border)]
+                                  bg-[var(--muted)]
+                                  text-[var(--muted-foreground)]
+                                  px-3
+                                  py-1
+                                  text-xs
+                                  sm:text-sm
+                                  rounded-full
+                                "
+                              >
+                                {tech.trim()}
+                              </span>
+                            ))}
+                      </div>
+
+                    </div>
                   </div>
-                </div>
-              </div>
-
-              {/* Tags */}
-              <div className="flex flex-wrap gap-2 mt-5">
-                <div className="skeleton h-8 w-20 rounded-full"></div>
-                <div className="skeleton h-8 w-24 rounded-full"></div>
-                <div className="skeleton h-8 w-16 rounded-full"></div>
-                <div className="skeleton h-8 w-28 rounded-full"></div>
-              </div>
-            </div>
+                </motion.div>
+              </TimelineContent>
+            </TimelineItem>
           ))}
-        </div>
-
+        </Timeline>
       </div>
-    </div>
-      );
-    }
+    </section>
+  );
+}
 
-    return (
-      <div className="container mx-auto py-6 px-4 md:px-12 mt-5">
-        <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
-          
-          <div className="lg:w-1/3">
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.05 }}
-              className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 font-Poppins"
-            >
-              {t('work.title')}
-            </motion.h2>
-          </div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="lg:w-2/3 flex flex-col gap-6"
-          > 
-            {workData.length > 0 ? (
-              workData.map((work) => (
-                <div key={work.id} className="bg-white p-6 rounded-lg shadow-sm">
-
-                  <div className="flex flex-col sm:flex-row gap-5 mb-4 text-center sm:text-left">
-
-                    {work.image && (
-                      <img 
-                        src={work.image} 
-                        alt={work.company_name} 
-                        className="w-14 h-14 object-cover rounded-xl"
-                      />
-                    )}
-
-                    <div className="flex flex-col gap-3">
-                      <h1 className="font-semibold text-lg text-black">
-                        {work.company_name}
-                      </h1>
-
-                      <p className="text-sm text-gray-500">
-                        {work.position}
-                      </p>
-
-                      <p className="text-sm text-gray-500">
-                        {new Date(work.start_date).toLocaleDateString(i18n.language, { month: 'short', year: 'numeric' })} -{' '}
-                        {(!work.end_date || work.end_date === '0000-00-00')
-                          ? t("work.now")
-                          : new Date(work.end_date).toLocaleDateString(i18n.language === "id" ? "id-ID" : "en-US", { month: "short", year: "numeric" })}
-                      </p>
-
-                      <p className="text-sm text-gray-600 whitespace-pre-line text-justify">
-                        {i18n.language === "en" ? work.job_description : work.job_description_id}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex flex-wrap gap-2">
-                    {work.tools_used?.split(',').map((tech, index) => (
-                      <span key={index} className="border px-3 py-1 text-xs rounded-full">
-                        {tech.trim()}
-                      </span>
-                    ))}
-                  </div>
-
-                </div>
-              ))
-            ) : (
-              <p className="text-gray-400">No work experience found.</p>
-            )}
-          </motion.div>
-        </div>
-      </div>
-    );
-  }
-
-  export default Mywork;
->>>>>>> master
+export default Mywork;

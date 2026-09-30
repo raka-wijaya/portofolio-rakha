@@ -1,5 +1,5 @@
 import './App.css'
-import Navbar from './components/GlassSurface/Navbar/Navbar'
+import Navbar from "./components/Navbar/Navbar";
 import Home from './pages/Home'
 import Portofolio from './pages/Portfolio'
 import Contact from './pages/Contact'
