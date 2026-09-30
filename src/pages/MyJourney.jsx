@@ -311,21 +311,21 @@ function MyJourney() {
               </p>
               <div className="flex flex-wrap gap-2">
                 {[
-                  { label: "React", color: "#61DAFB" }, 
-                  { label: "Next.js", color: "#c1c1c1" },
-                  { label: "PHP", color: "#8993BE" },
-                  { label: "MySQL", color: "#00758F" },
-                  { label: "Laravel", color: "#FF2D20" },
-                  { label: "Tailwind", color: "#38BDF8" },
-                  { label: "Git", color: "#F05032" },
-                  { label: "Figma", color: "#A259FF" },
-                  { label: "JavaScript", color: "#F7DF1E" },
-                  { label: "Python", color: "#3776AB" },
-                  { label: "Supabase", color: "#3ECF8E" },
-                  { label: "TypeScript", color: "#3178C6" },
-                  { label: "Laragon", color: "#38B0FE" },
-                  { label: "Postman", color: "#FF6C37" },
-                  { label: "Html", color: "#FF6C37" },
+                  { label: "React", color: "#61DAFB" },
+{ label: "Next.js", color: "#000000" },
+{ label: "PHP", color: "#777BB4" },
+{ label: "MySQL", color: "#4479A1" },
+{ label: "Laravel", color: "#FF2D20" },
+{ label: "Tailwind", color: "#06B6D4" },
+{ label: "Git", color: "#F05032" },
+{ label: "Figma", color: "#F24E1E" },
+{ label: "JavaScript", color: "#F7DF1E" },
+{ label: "Python", color: "#3776AB" },
+{ label: "Supabase", color: "#3ECF8E" },
+{ label: "TypeScript", color: "#3178C6" },
+{ label: "Laragon", color: "#1E88E5" },
+{ label: "Postman", color: "#FF6C37" },
+{ label: "HTML", color: "#E34F26" },
                 ].map((tech) => (
                   <span
                     key={tech.label}
