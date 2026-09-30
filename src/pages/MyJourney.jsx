@@ -311,7 +311,7 @@ function MyJourney() {
               </p>
               <div className="flex flex-wrap gap-2">
                 {[
-                  { label: "React", color: "#61DAFB" },
+                  { label: "React", color: "#61DAFB" }, 
                   { label: "Next.js", color: "#c1c1c1" },
                   { label: "PHP", color: "#8993BE" },
                   { label: "MySQL", color: "#00758F" },
@@ -324,6 +324,8 @@ function MyJourney() {
                   { label: "Supabase", color: "#3ECF8E" },
                   { label: "TypeScript", color: "#3178C6" },
                   { label: "Laragon", color: "#38B0FE" },
+                  { label: "Postman", color: "#FF6C37" },
+                  { label: "Html", color: "#FF6C37" },
                 ].map((tech) => (
                   <span
                     key={tech.label}
