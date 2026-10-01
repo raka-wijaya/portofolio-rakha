@@ -11,7 +11,6 @@ import { motion } from "framer-motion";
 import MyJourney from "./MyJourney";
 import MyWork from "./Mywork";
 import MyEducation from "./MyEducation";
-import Tools from "../pages/Tools";
 import Footer from "./Footer";
 import GithubChart from "./Github";
 import Lanyard from "../components/Lanyard/Lanyard";
@@ -139,7 +138,6 @@ function Home() {
       <MyJourney />
       <MyWork />
       <MyEducation />
-      <Tools />
       <GithubChart />
       <Footer />
     </>
